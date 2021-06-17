@@ -11,7 +11,30 @@ namespace Practice11_1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            string s_Conn = "Data Source=(localdb)\\MSSQLLocalDB;" +
+                            "Initial Catalog=Test;" +
+                            "Integrated Security=True;" +
+                            "Connect Timeout=30;Encrypt=False;" +
+                            "TrustServerCertificate=False;" +
+                            "ApplicationIntent=ReadWrite;MultiSubnetFailover=False;" +
+                            "User ID = sa; Password = 12345";
 
+            SqlConnection o_Conn = new SqlConnection(s_Conn);
+
+            try
+            {
+                o_Conn.Open();
+
+                SqlCommand o_Com = new SqlCommand("Update Users set Birthday ='2021/6/17'" +
+                    " where Name =N'狗狗旭'", o_Conn);
+
+                o_Com.ExecuteNonQuery();
+
+            }
+            catch (Exception exc)
+            {
+                Response.Write(exc.ToString());
+            }
         }
     }
 }
